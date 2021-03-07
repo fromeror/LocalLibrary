@@ -1,15 +1,18 @@
 // Note: Please do not change the name of the functions. The tests use those names to validate your code.
 
+// Returns the total number of books
 function getTotalBooksCount(books) {
   const totalBooks = books.length;
   return totalBooks;
 }
 
+// Returns the total number of accounts
 function getTotalAccountsCount(accounts) {
   const totalAccounts = accounts.length;
   return totalAccounts;
 }
 
+// Returns the total of numbber of books that are currently checked out 
 function getBooksBorrowedCount(books) {
   let borrowed = books.filter((book) => book.borrows[0].returned === false);
   const totalBorrowed = borrowed.length;
@@ -17,6 +20,8 @@ function getBooksBorrowedCount(books) {
   return totalBorrowed;
 }
 
+// Returns an array of 5 or less objects that represent the most 
+// common genres 
 function getMostCommonGenres(books) {
   const commonGenres = [];
 
@@ -34,14 +39,20 @@ function getMostCommonGenres(books) {
   return topFive(commonGenres);
 }
 
+// Returns an array of 5 or less objects representing the most popular
+// books. Reprsented by the number of times a book has been borrowed 
 function getMostPopularBooks(books) {
-  const borrows = books.map((book) => {
-    return { name: book.title, count: book.borrows.length };
-  });
+  let result = [];
 
-  return topFive(borrows);
+  const borrows = books.reduce((acc, book) => {
+    result.push({ name: book.title, count: book.borrows.length });
+  }, []);
+
+  return topFive(result);
 }
 
+// Returns an array of 5 or less objects representing the most popular 
+// authors whose books have been checked out the most.
 function getMostPopularAuthors(books, authors) {
   const popularAuthors = [];
 
@@ -61,6 +72,7 @@ function getMostPopularAuthors(books, authors) {
 }
 
 // Helper function
+// Returns the top five items in the array
 function topFive(array) {
   let result = array
     .sort((countA, countB) => (countA.count < countB.count ? 1 : -1))
